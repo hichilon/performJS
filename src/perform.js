@@ -2,7 +2,10 @@
 
 
 (function(window,undefined){
-	
+
+/**
+* Check if the Browser supports the Navigation Timing API. Return if it doesn't.
+*/	
 if(!window.performance){
 	if(window.console) window.console.log("Navigation Timing API is supported in this browser");
 	return;
@@ -108,6 +111,12 @@ Perform.prototype.getData = function(){
 	return this.data;
 };
 	
+/**
+* View the stats in a timeline. The timeline is implemented using google's chart tools.
+*
+* @method _viewChart
+* @return {null} It doesn't return a value. It appends a timeline to the body element.
+*/
 var _viewChart = function(data){
 			
 	google.setOnLoadCallback(drawChart);
@@ -131,14 +140,19 @@ var _viewChart = function(data){
 		chart.draw(dataTable);
 	}
 };
-	
+
 /**
-* Gets all the performance stats that we are interestd in and stores them in the data object.
-*
-* @method stats
-* @return {object} Returns all the performance stats as an object.
+* This is the object that the library users will be interacting with. 
+* It provides one function,the stats function, that returns displays 
+* the performance data either in the console or in a timeline chart.
 */
 var perform = {
+	/**
+	* Gets all the performance stats that we are interested in and stores them in the data object.
+	* This function serves as the interface to the library. 
+	* @method stats
+	* @param toChart {boolean} True: Data presented as a timeline. False(Default): Data is logged to the console. 
+	*/
 	stats : function(toChart){
 				var myStats = new Perform();
 				window.document.onreadystatechange = function () {
@@ -153,7 +167,9 @@ var perform = {
 			}
 	};
 	
-	
+/**
+* Adds the perform object to the window object and return it.
+*/	
 return window.perform = perform;
 
 })(window);
