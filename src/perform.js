@@ -1,14 +1,13 @@
 // Copyright 2013 Namukaba Hichilo[hichilon@berea.edu]. All Rights Reserved
 
-
 (function(window,undefined){
 
 /**
 * Check if the Browser supports the Navigation Timing API. Return if it doesn't.
 */	
 if(!window.performance){
-	if(window.console) window.console.log("Navigation Timing API is supported in this browser");
-	return;
+ if(window.console) window.console.log("Navigation Timing API is supported in this browser");
+ return;
 }
 	
 /**
@@ -17,9 +16,9 @@ if(!window.performance){
 * @constructor 
 */
 function Perform(){
-	this.p = window.performance.timing;  //Store a short cut to the Navigation Timing API
-	this.lookUp = ["loadTime","latency","connectTime","dnsLatency","documentLoad"];  //Stores the stats we are interested in. More will be added in the future
-	this.data = this.data || {};  //Create an object to store our stats only if we haven't created it already
+ this.p = window.performance.timing;  //Store a short cut to the Navigation Timing API
+ this.lookUp = ["loadTime","latency","connectTime","dnsLatency","documentLoad"];  //Stores the stats we are interested in. More will be added in the future
+ this.data = this.data || {};  //Create an object to store our stats only if we haven't created it already
 };
 	
 /**
@@ -29,13 +28,13 @@ function Perform(){
 * @return {int} Returns the duration(milliseconds) it took the page to load
 */
 Perform.prototype.loadTime = function(){	
-	var now = new Date().getTime();
-	var end = this.p.loadEventEnd ? this.p.loadEventEnd : now;
-	this.data.loadTime = {
-		"startTime" : 0,
-		"duration" : end-this.p.navigationStart
-	};
-	return this.data.loadTime.duration;
+ var now = new Date().getTime();
+ var end = this.p.loadEventEnd ? this.p.loadEventEnd : now;
+ this.data.loadTime = {
+	 "startTime" : 0,
+	 "duration" : end-this.p.navigationStart
+ };
+ return this.data.loadTime.duration;
 };
 	
 /**
@@ -47,11 +46,11 @@ Perform.prototype.loadTime = function(){
 * @return {int} Returns the value of the network's latency
 */
 Perform.prototype.latency = function(){
-	this.data.latency = {
-		"startTime" : this.p.requestStart-this.p.navigationStart,
-		"duration" : this.p.responseStart-this.p.requestStart
-	};
-	return this.data.latency.duration;
+ this.data.latency = {
+	 "startTime" : this.p.requestStart-this.p.navigationStart,
+	 "duration" : this.p.responseStart-this.p.requestStart
+ };
+ return this.data.latency.duration;
 };
 	
 /**
@@ -61,11 +60,11 @@ Perform.prototype.latency = function(){
 * @return {int} Returns the time it took the user agent to make a connection to the server.
 */
 Perform.prototype.connectTime = function(){
-	this.data.connectTime = {
-		"startTime" : this.p.connectStart-this.p.navigationStart,
-		"duration" : this.p.connectEnd-this.p.connectStart
-	};
-	return this.data.connectTime.duration;
+ this.data.connectTime = {
+	 "startTime" : this.p.connectStart-this.p.navigationStart,
+	 "duration" : this.p.connectEnd-this.p.connectStart
+ };
+ return this.data.connectTime.duration;
 };
 	
 /**
@@ -75,11 +74,11 @@ Perform.prototype.connectTime = function(){
 * @return {int} Returns the time it took the user agent to make a DNS look up.
 */
 Perform.prototype.dnsLatency = function(){
-	this.data.dnsLatency = {
-		"startTime" : this.p.domainLookupStart-this.p.navigationStart,
-		"duration" : this.p.domainLookupEnd-this.p.domainLookupStart
-	};
-	return this.data.dnsLatency.duration;
+ this.data.dnsLatency = {
+	 "startTime" : this.p.domainLookupStart-this.p.navigationStart,
+	 "duration" : this.p.domainLookupEnd-this.p.domainLookupStart
+ };
+ return this.data.dnsLatency.duration;
 };
 	
 /**
@@ -89,11 +88,11 @@ Perform.prototype.dnsLatency = function(){
 * @return {int} Returns the time it took the user agent to load the document.
 */
 Perform.prototype.documentLoad = function(){
-	this.data.documentLoad = {
-		"startTime" : this.p.domLoading-this.p.navigationStart,
-		"duration" : this.p.domComplete-this.p.domLoading  
-	};
-	return this.data.documentLoad.duration;
+ this.data.documentLoad = {
+	 "startTime" : this.p.domLoading-this.p.navigationStart,
+	 "duration" : this.p.domComplete-this.p.domLoading  
+ };
+ return this.data.documentLoad.duration;
 };
 	
 	
@@ -104,11 +103,11 @@ Perform.prototype.documentLoad = function(){
 * @return {object} Returns all the performance stats as an object.
 */
 Perform.prototype.getData = function(){
-	for(var key = 0;key < this.lookUp.length;key++){
-		if(!this.data[this.lookUp[key]])
-			this[this.lookUp[key]]();
-	}
-	return this.data;
+ for(var key = 0;key < this.lookUp.length;key++){
+	 if(!this.data[this.lookUp[key]])
+		 this[this.lookUp[key]]();
+ }
+ return this.data;
 };
 	
 /**
@@ -119,26 +118,26 @@ Perform.prototype.getData = function(){
 */
 var _viewChart = function(data){
 			
-	google.setOnLoadCallback(drawChart);
-	function drawChart() {
-		var LoadTime = "Stats";
-		var container = window.document.getElementsByTagName('body')[0];
-		var chart = new google.visualization.Timeline(container);
+ google.setOnLoadCallback(drawChart);
+ function drawChart() {
+	 var LoadTime = "Stats";
+	 var container = window.document.getElementsByTagName('body')[0];
+	 var chart = new google.visualization.Timeline(container);
 
-		var dataTable = new google.visualization.DataTable();
-		dataTable.addColumn({ type: 'string', id: 'Name' });
-		dataTable.addColumn({ type: 'date', id: 'Start' });
-		dataTable.addColumn({ type: 'date', id: 'End' });
+	 var dataTable = new google.visualization.DataTable();
+	 dataTable.addColumn({ type: 'string', id: 'Name' });
+	 dataTable.addColumn({ type: 'date', id: 'Start' });
+	 dataTable.addColumn({ type: 'date', id: 'End' });
 				
-		dataTable.addRows([
-			[ 'Connection Time: '+data.connectTime.duration+"ms",     new Date(0,0,0,0,0,0,data.connectTime.startTime),   new Date(0,0,0,0,0,0,data.connectTime.duration+data.connectTime.startTime)],
-			[ 'DNS Look Up Time: '+data.dnsLatency.duration+"ms",    new Date(0,0,0,0,0,0,data.dnsLatency.startTime),    new Date(0,0,0,0,0,0,data.dnsLatency.duration+data.dnsLatency.startTime)],
-			[ 'Latency Time: '+data.latency.duration+"ms",        new Date(0,0,0,0,0,0,data.latency.startTime),       new Date(0,0,0,0,0,0,data.latency.duration+data.latency.startTime)],
-			[ 'Document Load Time: '+data.documentLoad.duration+"ms",  new Date(0,0,0,0,0,0,data.documentLoad.startTime),  new Date(0,0,0,0,0,0,data.documentLoad.duration+data.documentLoad.startTime)],
-			[ 'Page Load Time: '+data.loadTime.duration+"ms",      new Date(0,0,0,0,0,0,data.loadTime.startTime),      new Date(0,0,0,0,0,0,data.loadTime.duration+data.loadTime.startTime)]]);
+	 dataTable.addRows([
+		 [ 'Connection Time: '+data.connectTime.duration+"ms",     new Date(0,0,0,0,0,0,data.connectTime.startTime),   new Date(0,0,0,0,0,0,data.connectTime.duration+data.connectTime.startTime)],
+		 [ 'DNS Look Up Time: '+data.dnsLatency.duration+"ms",    new Date(0,0,0,0,0,0,data.dnsLatency.startTime),    new Date(0,0,0,0,0,0,data.dnsLatency.duration+data.dnsLatency.startTime)],
+		 [ 'Latency Time: '+data.latency.duration+"ms",        new Date(0,0,0,0,0,0,data.latency.startTime),       new Date(0,0,0,0,0,0,data.latency.duration+data.latency.startTime)],
+		 [ 'Document Load Time: '+data.documentLoad.duration+"ms",  new Date(0,0,0,0,0,0,data.documentLoad.startTime),  new Date(0,0,0,0,0,0,data.documentLoad.duration+data.documentLoad.startTime)],
+		 [ 'Page Load Time: '+data.loadTime.duration+"ms",      new Date(0,0,0,0,0,0,data.loadTime.startTime),      new Date(0,0,0,0,0,0,data.loadTime.duration+data.loadTime.startTime)]]);
 
-		chart.draw(dataTable);
-	}
+	 chart.draw(dataTable);
+ }
 };
 
 /**
@@ -147,25 +146,25 @@ var _viewChart = function(data){
 * the performance data either in the console or in a timeline chart.
 */
 var perform = {
-	/**
-	* Gets all the performance stats that we are interested in and stores them in the data object.
-	* This function serves as the interface to the library. 
-	* @method stats
-	* @param toChart {boolean} True: Data presented as a timeline. False(Default): Data is logged to the console. 
-	*/
-	stats : function(toChart){
-				var myStats = new Perform();
-				window.document.onreadystatechange = function () {
-					if (window.document.readyState == "complete") {
-						toChart = toChart !== undefined ? toChart : false;
-						if(toChart)
-							_viewChart(myStats.getData());
-						else			
-							window.console.log(myStats.getData());
-					}
-				}
+ /**
+ * Gets all the performance stats that we are interested in and stores them in the data object.
+ * This function serves as the interface to the library. 
+ * @method stats
+ * @param toChart {boolean} True: Data presented as a timeline. False(Default): Data is logged to the console. 
+ */
+ stats : function(toChart){
+		  var myStats = new Perform();
+		  window.document.onreadystatechange = function () {
+		    if (window.document.readyState == "complete") {
+			  toChart = toChart !== undefined ? toChart : false;
+			  if(toChart)
+			    _viewChart(myStats.getData());
+			  else			
+			   window.console.log(myStats.getData());
 			}
-	};
+		  }
+		}
+};
 	
 /**
 * Adds the perform object to the window object and return it.
