@@ -142,7 +142,7 @@ var _viewChart = function(data){
 
 /**
 * This is the object that the library users will be interacting with. 
-* It provides one function,the stats function, that returns displays 
+* It provides one function,the stats function, that displays 
 * the performance data either in the console or in a timeline chart.
 */
 var perform = {
