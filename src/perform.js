@@ -6,7 +6,7 @@
 * Check if the Browser supports the Navigation Timing API. Return if it doesn't.
 */	
 if(!window.performance){
- if(window.console) window.console.log("Navigation Timing API is supported in this browser");
+ if(window.console) window.console.log("Navigation Timing API is NOT supported in this browser");
  return;
 }
 	
